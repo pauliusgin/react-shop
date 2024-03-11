@@ -1,0 +1,21 @@
+@use "../../styles/variables.scss" as *;
+
+.main-controls__input {
+	width: 300px;
+	height: 2rem;
+	position: absolute;
+	top: 10px;
+	left: 20vw;
+	background: red;
+	color: white;
+	font-weight: 700;
+	font-size: 1.5rem;
+	outline: 2px solid $orange-300;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 5px 10px;
+}
+
+::placeholder {
+	color: white;
+}

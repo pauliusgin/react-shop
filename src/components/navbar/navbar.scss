@@ -1,0 +1,53 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.nav-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-image: url(../../styles/assets/images/veggies.jpg);
+	background-size: cover;
+	background-position: center;
+	color: $light-font;
+	padding: 2rem;
+	margin-bottom: 4rem;
+
+	&::after {
+		@include reklama;
+		writing-mode: horizontal-tb;
+		text-orientation: mixed;
+		top: 8rem;
+		right: 40%;
+		width: fit-content;
+		height: 40px;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: row;
+		list-style: none;
+		align-items: center;
+		gap: 2rem;
+		margin: 0;
+	}
+
+	li {
+		cursor: pointer;
+		background: $teal-100;
+		padding: 10px;
+		transition: all 0.2s ease;
+
+		&:hover {
+			color: $orange-100;
+		}
+
+		&:active,
+		a.active {
+			color: $orange-500;
+		}
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+}

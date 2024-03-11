@@ -1,0 +1,46 @@
+@use "../../styles/variables.scss" as *;
+
+.user {
+	height: 2rem;
+	width: 2rem;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: $teal-300;
+	background: $orange-100;
+	border-radius: 50%;
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.offcanvas-header {
+	background-color: red;
+	.menu {
+		&__title {
+			color: white;
+		}
+	}
+}
+
+.offcanvas-body {
+	background-color: yellow;
+	p {
+		color: $teal-100;
+		.first {
+			font-weight: 700;
+			color: $orange-500;
+		}
+	}
+	.watermelon-basket {
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
+
+		& .watermelon {
+			height: 300px;
+			width: auto;
+			text-align: center;
+		}
+	}
+}
