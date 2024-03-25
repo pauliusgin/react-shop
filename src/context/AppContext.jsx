@@ -1,12 +1,10 @@
 import React, { useState, createContext, useEffect } from "react";
-import mockData from "../mockData.js";
+import { cfg } from "../cfg/config";
 
 const AppContext = createContext();
 
 function AppContextProvider({ children }) {
-	const [data, setData] = useState(
-		JSON.parse(localStorage.getItem("data")) || mockData
-	);
+	const [data, setData] = useState([]);
 	const [cardData, setCardData] = useState(
 		JSON.parse(localStorage.getItem("cardData")) || []
 	);
@@ -15,10 +13,31 @@ function AppContextProvider({ children }) {
 	);
 
 	useEffect(() => {
-		console.log("triggered!!!");
-		localStorage.setItem("data", JSON.stringify(data));
+		async function fetchProducts() {
+			try {
+				console.log("NODE_ENV", process.env.NODE_ENV);
+				console.log("host", cfg.API.HOST);
+				// const response = await fetch("http://localhost:3000/product");
+				const response = await fetch(`${cfg.API.HOST}/product`);
+
+				const products = await response.json();
+				console.log("data:", products);
+
+				const filteredProducts = products.filter(
+					(product) =>
+						!cardData.some((cardItem) => cardItem.title === product.title)
+				);
+				setData(filteredProducts);
+			} catch (err) {
+				console.error(err.message);
+			}
+		}
+		fetchProducts();
+	}, []);
+
+	useEffect(() => {
 		localStorage.setItem("cardData", JSON.stringify(cardData));
-	}, [data, cardData]);
+	}, [cardData]);
 
 	useEffect(() => {
 		localStorage.setItem("favoritesData", JSON.stringify(favoritesData));
