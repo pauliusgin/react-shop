@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar.jsx";
 import Main from "./components/main/Main.jsx";
 import { MyCards } from "./components/MyCards/MyCards.jsx";
 import { Favorites } from "./components/favorites/Favorites.jsx";
+import { Admin } from "./components/admin/admin.jsx";
 // styles
 import "./App.scss";
 
@@ -15,7 +16,8 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/my-cards" element={<MyCards />} />
-				<Route path="favorites" element={<Favorites />} />
+				<Route path="/favorites" element={<Favorites />} />
+				<Route path="/admin" element={<Admin />} />
 			</Routes>
 		</>
 	);

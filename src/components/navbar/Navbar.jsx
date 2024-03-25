@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.scss";
-// import { faTruckLoading } from "@fortawesome/free-solid-svg-icons";
 import { User } from "../user/User";
 
 function Navbar() {
@@ -13,10 +12,13 @@ function Navbar() {
 					<NavLink to="/">All items</NavLink>
 				</li>
 				<li>
-					<NavLink to="my-cards">My Cards</NavLink>
+					<NavLink to="/my-cards">My Cards</NavLink>
 				</li>
 				<li>
-					<NavLink to="favorites">Favorites</NavLink>
+					<NavLink to="/favorites">Favorites</NavLink>
+				</li>
+				<li>
+					<NavLink to="/admin">Admin</NavLink>
 				</li>
 			</ul>
 			<User />
