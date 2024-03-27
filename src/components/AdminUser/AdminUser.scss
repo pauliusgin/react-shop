@@ -1,37 +1,23 @@
 @use "../../styles/variables.scss" as *;
 
-.user {
-	height: 2rem;
-	width: 2rem;
-	font-size: 1.5rem;
-	font-weight: 700;
-	color: $teal-300;
-	background: $orange-100;
-	border-radius: 50%;
-	border: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .offcanvas-header {
 	background-color: red;
-	.menu {
-		&__title {
-			color: white;
-		}
-	}
+	color: white;
 }
 
 .offcanvas-body {
 	background-color: yellow;
-	p {
-		color: $teal-100;
-		.first {
-			font-weight: 700;
-			color: $orange-500;
+
+	.submit-button {
+		background-color: #00ff00;
+		color: black;
+		border: none;
+
+		&:hover {
+			background-color: #f931ce;
 		}
 	}
+
 	.watermelon-basket {
 		display: flex;
 		justify-content: center;
@@ -41,6 +27,7 @@
 			height: 300px;
 			width: auto;
 			text-align: center;
+			transform: rotate(10deg);
 		}
 	}
 }
