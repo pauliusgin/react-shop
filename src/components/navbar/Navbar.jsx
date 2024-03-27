@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./navbar.scss";
-import { User } from "../user/User";
+import { AdminUser } from "../AdminUser/AdminUser";
 
 function Navbar() {
 	return (
@@ -21,7 +21,7 @@ function Navbar() {
 					<NavLink to="/admin">Admin</NavLink>
 				</li>
 			</ul>
-			<User />
+			<AdminUser />
 		</nav>
 	);
 }
