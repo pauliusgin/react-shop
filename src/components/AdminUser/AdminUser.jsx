@@ -1,12 +1,22 @@
 import React, { useState } from "react";
-import { Button, Form, Row, Col, Offcanvas, Spinner } from "react-bootstrap";
+import {
+	Button,
+	Form,
+	Row,
+	Col,
+	Offcanvas,
+	Spinner,
+	Alert,
+} from "react-bootstrap";
 import watermelon from "../../styles/assets/images/watermelon.jpg";
+import { cfg } from "../../cfg/config";
 
 import "./AdminUser.scss";
 
 function AdminUser() {
 	const [validated, setValidated] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -20,17 +30,36 @@ function AdminUser() {
 			return;
 		}
 
-		try {
-			setLoading(true);
-		} catch (err) {
-			console.log(err);
-		} finally {
-			setLoading(false);
-		}
-
 		setPassword("");
 		setUsername("");
 		setValidated(false);
+
+		console.log("username:", username + " | password:", password);
+
+		try {
+			setLoading(true);
+			if (error) setError(false);
+
+			const response = await fetch(`${cfg.API.HOST}/user/login`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ username, password }),
+			});
+
+			if (!response.ok) {
+				throw new Error("Username or password is incorrect.");
+			}
+
+			const user = await response.json();
+			console.log(user);
+		} catch (error) {
+			console.log(error.message);
+			setError(true);
+		} finally {
+			setLoading(false);
+		}
 	}
 
 	const [show, setShow] = useState(false);
@@ -39,6 +68,7 @@ function AdminUser() {
 		setValidated(false);
 		setPassword("");
 		setUsername("");
+		setError(false);
 	};
 	const handleShow = () => setShow(true);
 
@@ -52,6 +82,9 @@ function AdminUser() {
 					<Offcanvas.Title>Login Panel</Offcanvas.Title>
 				</Offcanvas.Header>
 				<Offcanvas.Body>
+					{error && (
+						<Alert variant="danger">Username or password incorrect.</Alert>
+					)}
 					<Form noValidate validated={validated} onSubmit={handleSubmit}>
 						<Row className="mb-3">
 							<Form.Group as={Col} md="6" controlId="validationCustom01">
