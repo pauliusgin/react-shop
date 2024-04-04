@@ -12,26 +12,27 @@ function AppContextProvider({ children }) {
 		JSON.parse(localStorage.getItem("favoritesData")) || []
 	);
 
-	useEffect(() => {
-		async function fetchProducts() {
-			try {
-				console.log("NODE_ENV", process.env.NODE_ENV);
-				console.log("host", cfg.API.HOST);
-				// const response = await fetch("http://localhost:3000/product");
-				const response = await fetch(`${cfg.API.HOST}/product`);
+	async function fetchProducts() {
+		try {
+			console.log("NODE_ENV", process.env.NODE_ENV);
+			console.log("host", cfg.API.HOST);
+			// const response = await fetch("http://localhost:3000/product");
+			const response = await fetch(`${cfg.API.HOST}/product`);
 
-				const products = await response.json();
-				console.log("data:", products);
+			const products = await response.json();
+			console.log("data:", products);
 
-				const filteredProducts = products.filter(
-					(product) =>
-						!cardData.some((cardItem) => cardItem.title === product.title)
-				);
-				setData(filteredProducts);
-			} catch (err) {
-				console.error(err.message);
-			}
+			const filteredProducts = products.filter(
+				(product) =>
+					!cardData.some((cardItem) => cardItem.title === product.title)
+			);
+			setData(filteredProducts);
+		} catch (err) {
+			console.error(err.message);
 		}
+	}
+
+	useEffect(() => {
 		fetchProducts();
 	}, []);
 
@@ -80,6 +81,7 @@ function AppContextProvider({ children }) {
 				setData,
 				cardData,
 				setCardData,
+				fetchProducts,
 				favoritesData,
 				setFavoritesData,
 				handleAddToCard,

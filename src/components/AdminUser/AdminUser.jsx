@@ -1,3 +1,4 @@
+import { useAuth } from "../../hooks/useAuth";
 import React, { useState } from "react";
 import {
 	Button,
@@ -19,6 +20,7 @@ function AdminUser() {
 	const [error, setError] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const { token, setToken } = useAuth();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -53,7 +55,10 @@ function AdminUser() {
 			}
 
 			const user = await response.json();
+
 			console.log(user);
+
+			if (user?.token) setToken(user.token);
 		} catch (error) {
 			console.log(error.message);
 			setError(true);
@@ -79,7 +84,9 @@ function AdminUser() {
 			</Button>
 			<Offcanvas show={show} onHide={handleClose} placement="end">
 				<Offcanvas.Header closeButton>
-					<Offcanvas.Title>Login Panel</Offcanvas.Title>
+					<Offcanvas.Title>
+						{token ? "You are logged in" : "Login Panel"}
+					</Offcanvas.Title>
 				</Offcanvas.Header>
 				<Offcanvas.Body>
 					{error && (

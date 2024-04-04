@@ -28,7 +28,7 @@ function Main() {
 					setSearchValue(e.target.value.toLowerCase());
 				}}
 			></input>
-
+			{!data.length && <h2>No items found...</h2>}
 			{data
 				.filter(
 					({ title, description }) =>

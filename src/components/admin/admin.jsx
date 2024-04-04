@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import { cfg } from "../../cfg/config";
+import { useAuth } from "../../hooks/useAuth";
+import { AppContext } from "../../context/AppContext";
 
 function Admin() {
 	const [validated, setValidated] = useState(false);
@@ -16,6 +18,8 @@ function Admin() {
 		value: null, // success | danger
 		message: "",
 	});
+	const { token } = useAuth();
+	const { fetchProducts } = useContext(AppContext);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -43,6 +47,7 @@ function Admin() {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify(data),
 			});
@@ -55,8 +60,9 @@ function Admin() {
 			}
 			setStatus({
 				value: "success",
-				message: "Such good, so product..!",
+				message: "Such good, so awesome product..!",
 			});
+			fetchProducts();
 		} catch (err) {
 			setStatus({
 				value: "danger",
